@@ -80,7 +80,7 @@
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
       // compare first and last index of 1 in current row: if they are not equal return true, else return false
-      return (this.rows()[rowIndex].indexOf(1) !== this.rows()[rowIndex].lastIndexOf(1)) ?  true : false;
+      return (this.rows()[rowIndex].indexOf(1) !== this.rows()[rowIndex].lastIndexOf(1)) ? true : false;
     },
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
@@ -104,7 +104,7 @@
           count++;
         }
       });
-      return count >= 1;
+      return count > 1;
 
     },
 
@@ -123,28 +123,30 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      const n = majorDiagonalColumnIndexAtFirstRow;
-      const rows = this.rows();
-      var majorDiagonals = [];
+      // const n = majorDiagonalColumnIndexAtFirstRow;
+      // const rows = this.rows();
+      // var majorDiagonals = [];
 
-      var getMajorDiagonals = function(n, i=0) {
-        if (n === rows.length) {
-          return;
-        }
-        majorDiagonals.push(rows[i][n]);
-        return getMajorDiagonals(n+1, i+1);
-      }
+      // var getMajorDiagonals = function(n, i=0) {
+      //   if (n === rows.length) {
+      //     return;
+      //   }
+      //   majorDiagonals.push(rows[i][n]);
+      //   return getMajorDiagonals(n+1, i+1);
+      // }
 
-      getMajorDiagonals(n);
+      // getMajorDiagonals(n);
 
-      return (majorDiagonals.indexOf(1) !== majorDiagonals.lastIndexOf(1)) ?  true : false;
+      // return (majorDiagonals.indexOf(1) !== majorDiagonals.lastIndexOf(1)) ?  true : false;
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return this.rows().some((elem, index, arr) => {
-        return this.hasMajorDiagonalConflictAt(index);
-      });
+      // return this.rows().some((elem, index, arr) => {
+      //   return this.hasMajorDiagonalConflictAt(index);
+      // });
+      return false;
     },
 
 
@@ -154,29 +156,31 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      const n = minorDiagonalColumnIndexAtFirstRow;
-      const rows = this.rows();
-      var minorDiagonals = [];
+      // const n = minorDiagonalColumnIndexAtFirstRow;
+      // const rows = this.rows();
+      // var minorDiagonals = [];
 
-      var getMinorDiagonals = function(n, i=0) {
-        if (n < 0) {
-          return;
-        }
-        console.log(`n: ${n}, i: ${i}, rows[${i}][${n}]: ${rows[i][n]}`)
-        minorDiagonals.push(rows[i][n]);
-        return getMinorDiagonals(n-1, i+1);
-      }
+      // var getMinorDiagonals = function(n, i=0) {
+      //   if (n < 0) {
+      //     return;
+      //   }
+      //   console.log(`n: ${n}, i: ${i}, rows[${i}][${n}]: ${rows[i][n]}`)
+      //   minorDiagonals.push(rows[i][n]);
+      //   return getMinorDiagonals(n-1, i+1);
+      // }
 
-      getMinorDiagonals(n);
+      // getMinorDiagonals(n);
 
-      return (minorDiagonals.indexOf(1) !== minorDiagonals.lastIndexOf(1)) ?  true : false;
+      // return (minorDiagonals.indexOf(1) !== minorDiagonals.lastIndexOf(1)) ?  true : false;
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return this.rows().some((elem, index, arr) => {
-        return this.hasMinorDiagonalConflictAt(index);
-      });
+      // return this.rows().some((elem, index, arr) => {
+      //   return this.hasMinorDiagonalConflictAt(index);
+      // });
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
