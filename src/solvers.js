@@ -41,52 +41,37 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solutions = null;
-  // initialize a new board
-  var myBoard = new Board({n: n})
+  var solution;
+  var myBoard = new Board({n: n});
   var count = 0;
-  var rows = myBoard.rows();
-  console.log('n: ', n, 'myBoard: ', myBoard, 'myBoard.rows(): ', myBoard.rows());
 
-  var addPieces = function (myBoard, i = 0, j = 0) {
+  if (n === 1) {
+    return [[1, 0]];
+  }
 
-    console.log('myBoard: ', myBoard, 'rows: ', rows);
-
-    if (count === n) {
-      console.log('myBoard.rows in conditional: ', myBoard.rows());
-      solutions = (myBoard.rows());
-      count = 0;
-      return;
-    }
-
-    for (i = i || 0; i < rows.length; i++) {
-      var currRow = rows[i];
-      for (j = j || 0; j < currRow.length; j++) {
+  var addPieces = function (currBoard, count, i = 0, j = 0) {
+    while (i < n) {
+      while (j < n) {
         myBoard.togglePiece(i, j);
         console.log('i: ', i, 'j: ', j)
+        console.log('myBoard in nested while: ', myBoard.rows());
+        console.log('conflicts: ', (myBoard.hasAnyRowConflicts() || myBoard.hasAnyColConflicts()));
         if ((myBoard.hasAnyRowConflicts() || myBoard.hasAnyColConflicts())) {
-          return;
-        }
-        addPieces(myBoard, i, j + 1);
-      }
-    }
-
-    for (var k = 0; k < rows.length; k++) {
-      for (var l = 0; l < rows[k].length; l++) {
-        console.log('k: ', k, 'l: ', l, 'rows[k][l]: ', rows[k][l]);
-        if (rows[k][l] === 1) {
-          count++;
-          console.log('count: ', count)
+          myBoard.togglePiece(i, j);
+          break;
+        } else {
+          j++;
+          return addPieces(myBoard, count, i, j);
         }
       }
+      i++;
     }
-
   }
 
   addPieces(myBoard);
-  console.log('solutions at end: ', solutions);
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solutions));
-  return solutions;
+  solution = myBoard.rows();
+  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+  return solution;
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
